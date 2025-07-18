@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Spotify Clone</h1>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </a>
+                <a href="#" class="nav-item" data-page="search">
+                    <i class="fas fa-search"></i>
+                    <span>Buscar</span>
+                </a>
+                <a href="#" class="nav-item" data-page="library">
+                    <i class="fas fa-book"></i>
+                    <span>Sua Biblioteca</span>
+                </a>
+            </nav>
+            
+            <div class="playlists-section">
+                <div class="playlists-header">
+                    <h3>PLAYLISTS</h3>
+                    <button class="create-playlist-btn" id="openCreatePlaylistModal">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="playlists-list" id="playlistsList">
+                    <!-- Playlists serão inseridas aqui -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <div class="page active" id="homePage">
+                <div class="welcome-section">
+                    <h1>Boa tarde</h1>
+                    <p>Que tal ouvir algo novo hoje?</p>
+                </div>
+                
+                <section class="content-section">
+                    <h2>Sugestões de Músicas</h2>
+                    <div class="tracks-list" id="suggestedTracks">
+                        <!-- Sugestões de músicas -->
+                    </div>
+                </section>
+                
+                <section class="content-section">
+                    <h2>Músicas Recentes</h2>
+                    <div class="tracks-list" id="recentTracks">
+                        <!-- Músicas recentes -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Search Page -->
+            <div class="page" id="searchPage">
+                <div class="search-header">
+                    <h1>Buscar</h1>
+                    <div class="search-input-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="O que você quer ouvir?">
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">Todos</button>
+                        <button class="filter-tab" data-filter="tracks">Músicas</button>
+                        <button class="filter-tab" data-filter="playlists">Playlists</button>
+                        <button class="filter-tab" data-filter="artists">Artistas</button>
+                    </div>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <!-- Resultados da busca -->
+                </div>
+            </div>
+
+            <!-- Library Page -->
+            <div class="page" id="libraryPage">
+                <div class="library-header">
+                    <h1>Sua Biblioteca</h1>
+                    <div class="library-tabs">
+                        <button class="library-tab active" data-tab="playlists">Playlists</button>
+                        <button class="library-tab" data-tab="liked">Músicas Curtidas</button>
+                        <button class="create-playlist-btn" id="openCreatePlaylistModal2" style="margin-left:16px;">
+                            <i class="fas fa-plus"></i> Nova Playlist
+                        </button>
+                    </div>
+                </div>
+                <div class="library-content" id="libraryContent">
+                    <!-- Conteúdo da biblioteca -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Player -->
+        <div class="player" id="player">
+            <div class="player-track-info">
+                <img src="" alt="" class="player-album-cover" id="playerAlbumCover">
+                <div class="player-track-details">
+                    <h4 id="playerTrackTitle">Nenhuma música tocando</h4>
+                    <p id="playerTrackArtist">-</p>
+                </div>
+                <button class="like-btn" id="likeBtn">
+                    <i class="far fa-heart"></i>
+                </button>
+                <button class="add-to-playlist-btn" id="addToPlaylistBtn" title="Adicionar à Playlist">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button class="control-btn" id="shuffleBtn">
+                        <i class="fas fa-random"></i>
+                    </button>
+                    <button class="control-btn" id="prevBtn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="control-btn play-btn" id="playBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn" id="nextBtn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    <button class="control-btn" id="repeatBtn">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+                
+                <div class="progress-container">
+                    <span class="time-display" id="currentTime">0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="time-display" id="totalTime">0:00</span>
+                </div>
+            </div>
+            
+            <div class="player-volume">
+                <button class="volume-btn" id="volumeBtn">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <div class="volume-bar" id="volumeBar">
+                    <div class="volume-fill" id="volumeFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Element -->
+        <audio id="audioElement" preload="metadata"></audio>
+
+        <div class="modal-overlay" id="playlistModal" style="display:none;">
+            <div class="modal">
+                <h3>Adicionar à Playlist</h3>
+                <div id="playlistModalList"></div>
+                <button id="closePlaylistModal" style="margin-top:16px;">Fechar</button>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="createPlaylistModal" style="display:none;">
+            <div class="modal">
+                <h3>Criar Nova Playlist</h3>
+                <input id="newPlaylistName" type="text" placeholder="Nome da playlist" style="width:100%;margin-bottom:8px;padding:8px;">
+                <input id="newPlaylistDesc" type="text" placeholder="Descrição (opcional)" style="width:100%;margin-bottom:16px;padding:8px;">
+                <button id="createPlaylistBtn" style="margin-bottom:8px;">Criar</button>
+                <button id="closeCreatePlaylistModal">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
